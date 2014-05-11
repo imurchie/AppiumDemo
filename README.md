@@ -4,4 +4,4 @@ An iOS demo project built with [RubyMotion](http://www.rubymotion.com/), to test
 
 Largely it will attempt to build gesture controls that are testable.
 
-Allow for editing text fields and acting on inserted data, scrolling, advanced gestures involving multiple fingers. 
+Allow for editing text fields and acting on inserted data, scrolling, advanced gestures involving multiple fingers. All of these will be developed with accessibility info, and in ways that create testable scenarios.
