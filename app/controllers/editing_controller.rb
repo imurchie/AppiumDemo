@@ -46,6 +46,7 @@ class EditingController < UIViewController
     self.view.addSubview @text_view
 
     @add = UIButton.buttonWithType(UIButtonTypeRoundedRect)
+    @add.accessibilityLabel = "Add"
     @add.setTitle("Add", forState:UIControlStateNormal)
     @add.enabled = false
     @add.sizeToFit

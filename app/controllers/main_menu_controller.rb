@@ -16,7 +16,7 @@ class MainMenuController < UITableViewController
     super
 
     # simple init
-    navigationItem.title = "Appium Demo"
+    navigationItem.title = "Appium " + "Demo"._
     self.view.backgroundColor = UIColor.whiteColor
     self.view.dataSource = self.view.delegate = self
   end
@@ -49,6 +49,10 @@ class MainMenuController < UITableViewController
       controller = EditingController.alloc.init
     elsif data[indexPath.row] == 'Gestures'
       controller = GesturesController.alloc.init
+    elsif data[indexPath.row] == 'Gestures -- Schematic'
+      controller = GestureTestsController.alloc.init
+    else
+      return
     end
 
 
@@ -59,7 +63,9 @@ class MainMenuController < UITableViewController
     @data ||= [
       'Editing',
       'Scrolling',
-      'Gestures'
+      'Gestures',
+      'Gestures -- Schematic',
+      'Gestures -- Visual'
     ]
   end
 end

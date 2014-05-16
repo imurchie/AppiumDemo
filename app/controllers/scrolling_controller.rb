@@ -25,7 +25,14 @@ class ScrollingController < UIViewController
     @table.dataSource = @table.delegate = self
     self.view.addSubview(@table)
 
+    tapR = UITapGestureRecognizer.alloc.initWithTarget(self, action:"handle_tap")
+    @table.addGestureRecognizer(tapR)
+
     @data = ('A'..'Z').to_a
+  end
+
+  def handle_tap
+    puts "hey hey hey"
   end
 
   def tableView(tableView, numberOfRowsInSection: section)
