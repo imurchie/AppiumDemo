@@ -12,6 +12,6 @@ Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name = 'AppiumDemo'
   app.identifier = "io.appium"
-  app.icons = ['icon.png']
+  app.icons = ['icon_iphone.png']
   app.prerendered_icon = true
 end
