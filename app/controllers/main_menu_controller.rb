@@ -51,6 +51,8 @@ class MainMenuController < UITableViewController
       controller = GesturesController.alloc.init
     elsif data[indexPath.row] == 'Gestures -- Schematic'
       controller = GestureTestsController.alloc.init
+    elsif data[indexPath.row] == 'Gestures -- Visual'
+      controller = GesturesVisualizerController.alloc.init
     else
       return
     end

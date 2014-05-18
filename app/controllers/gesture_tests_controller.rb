@@ -56,18 +56,9 @@ class GestureTestsController < UIViewController
 
     # add gesture control stuffs
     init_swipe_recognizers(scroll)
-
-    tapR = UITapGestureRecognizer.alloc.initWithTarget(self, action:"handle_tap:")
-    scroll.addGestureRecognizer(tapR)
-  end
-
-  def touchesBegan(touches, withEvent:event)
-    puts "touches Began"
-    @name_view.text = "touches began"
-  end
-
-  def touchesMoved(touches, withEvent:event)
-    puts "touches moved"
+    scroll.addGestureRecognizer(UIPinchGestureRecognizer.alloc.initWithTarget(self, action:"handle_pinch:"))
+    scroll.addGestureRecognizer(UILongPressGestureRecognizer.alloc.initWithTarget(self, action:"handle_longpress:"))
+    scroll.addGestureRecognizer(UITapGestureRecognizer.alloc.initWithTarget(self, action:"handle_tap:"))
   end
 
   def handle_swipe(sender)
@@ -90,6 +81,15 @@ class GestureTestsController < UIViewController
 
   def handle_tap(sender)
     display_gesture("Tap", sender.locationInView(self.view))
+  end
+
+  def handle_longpress(sender)
+    display_gesture("LongPress", sender.locationInView(self.view))
+  end
+
+  def handle_pinch(sender)
+    @name_view.text = sender.scale >= 1 ? "Zoom" : "Pinch"
+    @detail_view.text = "Scale: #{sender.scale}; Velocity: #{sender.velocity}"
   end
 
   def display_gesture(name, location)

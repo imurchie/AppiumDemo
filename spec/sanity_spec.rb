@@ -43,7 +43,8 @@ describe "AppiumDemo" do
   end
 
   after(:each) do
-    reset
+    # reset
+    back
   end
 
   after(:all) do
@@ -160,6 +161,56 @@ describe "AppiumDemo" do
 
       swipe(start_x: 200, start_y: 100, end_x: 0, end_y: 200)
       name.text.should eq "Down swipe"
+    end
+  end
+
+  describe "Pinch actions" do
+    it "should zoom" do
+      el = find_element(:name, "Gestures -- Schematic")
+      action = Appium::TouchAction.new
+      action.press(element: el).release.perform
+
+      name = find_element(:name, "gesture_name")
+      name.text.should eq ""
+
+      el = find_element(:name, "myscrollview")
+
+      # zoom
+      top = Appium::TouchAction.new
+      top.swipe(start_x: 200, start_y: 400, end_x: 100, end_y: 0)
+      bottom = Appium::TouchAction.new
+      bottom.swipe(start_x: 200, start_y: 400, end_x: -100, end_y: 0)
+
+      zoom = Appium::MultiTouch.new
+      zoom.add top
+      zoom.add bottom
+      zoom.perform
+
+      name.text.should eq "Zoom"
+    end
+
+    it "should pinch" do
+      sleep(1)
+      el = find_element(:name, "Gestures -- Schematic").click
+
+      name = find_element(:name, "gesture_name")
+      name.text.should eq ""
+
+      el = find_element(:name, "myscrollview")
+
+      # zoom
+      top = Appium::TouchAction.new
+      top.swipe(start_x: 100, start_y: 400, end_x: 100, end_y: 0)
+      bottom = Appium::TouchAction.new
+      bottom.swipe(start_x: 300, start_y: 400, end_x: -100, end_y: 0)
+
+      zoom = Appium::MultiTouch.new
+      zoom.add top
+      zoom.add bottom
+      zoom.perform
+
+
+      name.text.should eq "Pinch"
     end
   end
 end
