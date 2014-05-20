@@ -47,7 +47,7 @@ class GestureTestsController < UIViewController
     @detail_view = UITextField.alloc.initWithFrame [[0, 0], [160, 26]]
     @detail_view.delegate = self
     @detail_view.borderStyle = UITextBorderStyleNone;
-    @detail_view.accessibilityLabel = "gesture_name"
+    @detail_view.accessibilityLabel = "gesture_detail"
     @detail_view.setFont(UIFont.fontWithName("Helvetica", size:12))
     @detail_view.textAlignment = UITextAlignmentCenter
     @detail_view.text = ""

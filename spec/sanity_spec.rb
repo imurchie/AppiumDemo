@@ -103,6 +103,22 @@ describe "AppiumDemo" do
   #   end
   # end
 
+  describe "Tap action" do
+    it "should tap on the right place" do
+      el = find_element(:name, "Gestures -- Schematic").click
+
+      name = find_element(:name, "gesture_name")
+      name.text.should eq ""
+
+      el = find_element(:name, "myscrollview")
+      action = Appium::TouchAction.new
+      action.tap(x: 100, y: 100, duration: 100).perform
+      detail = find_element(:name, "gesture_detail")
+      puts detail.text
+      name.text.should eq "LongPress"
+    end
+  end
+
   describe "Swipe actions" do
     it "should swipe right" do
       el = find_element(:name, "Gestures -- Schematic")
@@ -111,11 +127,6 @@ describe "AppiumDemo" do
 
       name = find_element(:name, "gesture_name")
       name.text.should eq ""
-
-      el = find_element(:name, "myscrollview")
-      action = Appium::TouchAction.new
-      action.press(element: el).release.perform
-      name.text.should eq "Tap"
 
       swipe(start_x: 100, start_y: 400, end_x: 200, end_y: 0)
       name.text.should eq "Right swipe"
@@ -128,8 +139,6 @@ describe "AppiumDemo" do
 
       name = find_element(:name, "gesture_name")
       name.text.should eq ""
-
-      el = find_element(:name, "myscrollview")
 
       swipe(start_x: 300, start_y: 400, end_x: -200, end_y: 0)
       name.text.should eq "Left swipe"
@@ -208,9 +217,33 @@ describe "AppiumDemo" do
       zoom.add top
       zoom.add bottom
       zoom.perform
-
+      sleep(1)
 
       name.text.should eq "Pinch"
+    end
+  end
+
+  describe "Visualizing complex gestures" do
+    it "should tap on the right place" do
+      el = find_element(:name, "Gestures -- Visual").click
+
+      name = find_element(:name, "gesture_name")
+      name.text.should eq ""
+
+      el = find_element(:class_name, "UIAImage")
+
+      action = Appium::TouchAction.new
+      action.
+        press(x: 100, y: 200).
+        move_to(x: 25, y: -100).
+        move_to(x: 25, y: 100).
+        release.
+        perform
+
+      # need to do this for some reason... TODO: look into
+      name.text
+
+      sleep(10)
     end
   end
 end
