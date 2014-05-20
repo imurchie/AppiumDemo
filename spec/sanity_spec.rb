@@ -227,21 +227,115 @@ describe "AppiumDemo" do
     it "should tap on the right place" do
       el = find_element(:name, "Gestures -- Visual").click
 
-      name = find_element(:name, "gesture_name")
-      name.text.should eq ""
+      sleep(1)
 
-      el = find_element(:class_name, "UIAImage")
-
-      action = Appium::TouchAction.new
-      action.
-        press(x: 100, y: 200).
+      a = Appium::TouchAction.new
+      a.
+        press(x: 10, y: 200).
         move_to(x: 25, y: -100).
         move_to(x: 25, y: 100).
+        move_to(x: -13, y: -50).
+        move_to(x: -24, y: 0).
         release.
         perform
 
-      # need to do this for some reason... TODO: look into
-      name.text
+      p = Appium::TouchAction.new
+      p.
+        press(x: 70, y: 200).
+        move_to(x: 0, y: -100).
+        move_to(x: 40, y: 0).
+        move_to(x: 0, y: 50).
+        move_to(x: -40, y: 0).
+        release.
+        perform
+
+      p = Appium::TouchAction.new
+      p.
+        press(x: 120, y: 200).
+        move_to(x: 0, y: -100).
+        move_to(x: 40, y: 0).
+        move_to(x: 0, y: 50).
+        move_to(x: -40, y: 0).
+        release.
+        perform
+
+      i = Appium::TouchAction.new
+      i.
+        press(x: 170, y: 200).
+        move_to(x: 0, y: -100).
+        release.
+        perform
+
+      u = Appium::TouchAction.new
+      u.
+        press(x: 180, y: 100).
+        move_to(x: 0, y: 100).
+        move_to(x: 40, y: 0).
+        move_to(x: 0, y: -100).
+        release.
+        perform
+
+      m = Appium::TouchAction.new
+      m.
+        press(x: 230, y: 200).
+        move_to(x: 15, y: -100).
+        move_to(x: 15, y: 50).
+        move_to(x: 15, y: -50).
+        move_to(x: 15, y: 100).
+        release.
+        perform
+
+      r = Appium::TouchAction.new
+      r.
+        press(x: 20, y: 310).
+        move_to(x: 0, y: -100).
+        move_to(x: 40, y: 0).
+        move_to(x: 0, y: 50).
+        move_to(x: -40, y: 0).
+        move_to(x: 40, y: 50).
+        release.
+        perform
+
+      o = Appium::TouchAction.new
+      o.
+        press(x: 70, y: 310).
+        move_to(x: 0, y: -100).
+        move_to(x: 40, y: 0).
+        move_to(x: 0, y: 100).
+        move_to(x: -40, y: 0).
+        release.
+        perform
+
+      c = Appium::TouchAction.new
+      c.
+        press(x: 160, y: 310).
+        move_to(x: -40, y: 0).
+        move_to(x: 0, y: -100).
+        move_to(x: 40, y: 0).
+        release.
+        perform
+
+      k = Appium::TouchAction.new
+      k.
+        press(x: 170, y: 310).
+        move_to(x: 0, y: -100).
+        move_to(x: 0, y: 60).
+        move_to(x: 40, y: -60).
+        move_to(x: -34, y: 50).
+        move_to(x: 34, y: 50).
+        release.
+        perform
+
+      s = Appium::TouchAction.new
+      s.
+        press(x: 220, y: 310).
+        move_to(x: 40, y: 0).
+        move_to(x: 0, y: -50).
+        move_to(x: -40, y: 0).
+        move_to(x: 0, y: -50).
+        move_to(x: 40, y: 0).
+        release.
+        perform
 
       sleep(10)
     end
