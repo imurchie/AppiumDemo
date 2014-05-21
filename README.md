@@ -1,6 +1,6 @@
 # AppiumDemo
 
-An iOS demo project built with [RubyMotion](http://www.rubymotion.com/), to test with [Appium](http://www.appium.io). 
+An iOS demo project built with [RubyMotion](http://www.rubymotion.com/), to test with [Appium](http://www.appium.io).
 
 Largely it will attempt to build gesture controls that are testable.
 
@@ -15,4 +15,7 @@ The following are currently supported:
 * longPress
 * swipe
 
-I will also build a visual representation of complex pans. 
+There is also a visual gesture tool, which draws gestures in order to see the precision with which Appium can handle gestures.
+
+
+![Appium rocks](./ar.jpg)
