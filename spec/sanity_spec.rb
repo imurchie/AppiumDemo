@@ -43,22 +43,26 @@ describe "AppiumDemo" do
   end
 
   after(:each) do
-    # reset
-    back
+    begin
+      # el = find_element(:name, "Appium Demo")
+      # puts "ELEMENT: #{el.text}"
+      # el.click
+      back
+    rescue
+      back
+    end
   end
 
   after(:all) do
     driver_quit
   end
 
-  # describe "Navigating about" do
-  #   it "should be able to click an element" do
-  #     find_element(:name, "Editing").click
-  #   end
-  # end
-
   describe "Handling UITextFields" do
     it "should be able to fill in text fields" do
+      rnd = Random.new
+      n1 = rnd.rand(100)
+      n2 = rnd.rand(100)
+
       find_element(:name, "Editing").click
 
       sum_el = find_element(:name, "Sum")
@@ -68,44 +72,27 @@ describe "AppiumDemo" do
       add_btn.enabled?.should be_false
 
       el = find_element(:name, "TextField 1")
-      el.send_keys("4")
+      el.send_keys("#{n1}")
 
       sum_el.text.should eq ""
       add_btn.enabled?.should be_false
 
       el = find_element(:name, "TextField 2")
-      el.send_keys("6")
+      el.send_keys("#{n2}")
 
       sum_el.text.should eq ""
       add_btn.enabled?.should be_true
 
       add_btn.click
 
-      sum_el.text.should eq "10"
+      sum_el.text.should eq "#{n1 + n2}"
     end
   end
 
-  # describe "Scrolling" do
-  #   it "should be able to scroll a tableview" do
-  #     find_element(:name, "Scrolling").click
-  #     swipe(start_y: 400, end_y: -100)
-  #     sleep(10)
-  #   end
-  # end
-
-  # describe "simple actions" do
-  #   it "should press on an element" do
-  #     el = find_element(:name, "Gesture Tests")
-  #     (Appium::TouchAction.new).press(:element => el).perform
-
-  #     sleep(1)
-  #     expect { find_element(:name => "Editing") }.to raise_exception
-  #   end
-  # end
-
   describe "Tap action" do
     it "should tap on the right place" do
-      el = find_element(:name, "Gestures -- Schematic").click
+      find_element(:name, "Gestures -- Schematic").click
+      sleep(1)
 
       name = find_element(:name, "gesture_name")
       name.text.should eq ""
@@ -113,29 +100,27 @@ describe "AppiumDemo" do
       el = find_element(:name, "myscrollview")
       action = Appium::TouchAction.new
       action.tap(x: 100, y: 100, duration: 100).perform
-      detail = find_element(:name, "gesture_detail")
-      puts detail.text
+
       name.text.should eq "LongPress"
     end
   end
 
   describe "Swipe actions" do
     it "should swipe right" do
-      el = find_element(:name, "Gestures -- Schematic")
-      action = Appium::TouchAction.new
-      action.press(element: el).release.perform
+      find_element(:name, "Gestures -- Schematic").click
+      sleep(1)
 
       name = find_element(:name, "gesture_name")
       name.text.should eq ""
 
-      swipe(start_x: 100, start_y: 400, end_x: 200, end_y: 0)
+      a = Appium::TouchAction.new
+      a.swipe(start_x: 100, start_y: 400, end_x: 200, end_y: 0).perform
       name.text.should eq "Right swipe"
     end
 
     it "should swipe left" do
-      el = find_element(:name, "Gestures -- Schematic")
-      action = Appium::TouchAction.new
-      action.press(element: el).release.perform
+      find_element(:name, "Gestures -- Schematic").click
+      sleep(1)
 
       name = find_element(:name, "gesture_name")
       name.text.should eq ""
@@ -145,9 +130,8 @@ describe "AppiumDemo" do
     end
 
     it "should swipe up" do
-      el = find_element(:name, "Gestures -- Schematic")
-      action = Appium::TouchAction.new
-      action.press(element: el).release.perform
+      find_element(:name, "Gestures -- Schematic").click
+      sleep(1)
 
       name = find_element(:name, "gesture_name")
       name.text.should eq ""
@@ -159,9 +143,8 @@ describe "AppiumDemo" do
     end
 
     it "should swipe down" do
-      el = find_element(:name, "Gestures -- Schematic")
-      action = Appium::TouchAction.new
-      action.press(element: el).release.perform
+      find_element(:name, "Gestures -- Schematic").click
+      sleep(1)
 
       name = find_element(:name, "gesture_name")
       name.text.should eq ""
@@ -175,9 +158,8 @@ describe "AppiumDemo" do
 
   describe "Pinch actions" do
     it "should zoom" do
-      el = find_element(:name, "Gestures -- Schematic")
-      action = Appium::TouchAction.new
-      action.press(element: el).release.perform
+      find_element(:name, "Gestures -- Schematic").click
+      sleep(1)
 
       name = find_element(:name, "gesture_name")
       name.text.should eq ""
@@ -199,8 +181,8 @@ describe "AppiumDemo" do
     end
 
     it "should pinch" do
+      find_element(:name, "Gestures -- Schematic").click
       sleep(1)
-      el = find_element(:name, "Gestures -- Schematic").click
 
       name = find_element(:name, "gesture_name")
       name.text.should eq ""
@@ -224,8 +206,8 @@ describe "AppiumDemo" do
   end
 
   describe "Visualizing complex gestures" do
-    it "should tap on the right place" do
-      el = find_element(:name, "Gestures -- Visual").click
+    it "should write out 'Appium rocks" do
+      find_element(:name, "Gestures -- Visual").click
 
       sleep(1)
 
