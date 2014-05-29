@@ -21,10 +21,10 @@ APP_PATH = '../build/iPhoneSimulator-7.0-Development/AppiumDemo.app'
 
 def desired_caps
   {
-      'platformName' => 'iOS',
-      'deviceName' => 'iPhone Retina (4-inch)', # 'iPhone Simulator 4-inch',
-      'platformVersion' => '6.1',
-      'app' => absolute_app_path
+    'platformName' => 'iOS',
+    'deviceName' => 'iPhone Retina (4-inch)', # 'iPhone Simulator 4-inch',
+    'platformVersion' => '6.1',
+    'app' => absolute_app_path
   }
 end
 
@@ -43,14 +43,7 @@ describe "AppiumDemo" do
   end
 
   after(:each) do
-    begin
-      # el = find_element(:name, "Appium Demo")
-      # puts "ELEMENT: #{el.text}"
-      # el.click
-      back
-    rescue
-      back
-    end
+    back
   end
 
   after(:all) do
@@ -86,122 +79,140 @@ describe "AppiumDemo" do
       add_btn.click
 
       sum_el.text.should eq "#{n1 + n2}"
+
+      sleep(4)
     end
   end
 
-  describe "Tap action" do
-    it "should tap on the right place" do
-      find_element(:name, "Gestures -- Schematic").click
-      sleep(1)
+  describe "Schematic gestures" do
+    describe "Tap action" do
+      it "should tap on the right place" do
+        find_element(:name, "Gestures -- Schematic").click
+        sleep(1)
 
-      name = find_element(:name, "gesture_name")
-      name.text.should eq ""
+        name = find_element(:name, "gesture_name")
+        name.text.should eq ""
 
-      el = find_element(:name, "myscrollview")
-      action = Appium::TouchAction.new
-      action.tap(x: 100, y: 100, duration: 100).perform
+        el = find_element(:name, "myscrollview")
+        action = Appium::TouchAction.new
+        action.tap(x: 100, y: 100, duration: 100).perform
 
-      name.text.should eq "LongPress"
-    end
-  end
+        name.text.should eq "LongPress"
 
-  describe "Swipe actions" do
-    it "should swipe right" do
-      find_element(:name, "Gestures -- Schematic").click
-      sleep(1)
-
-      name = find_element(:name, "gesture_name")
-      name.text.should eq ""
-
-      a = Appium::TouchAction.new
-      a.swipe(start_x: 100, start_y: 400, end_x: 200, end_y: 0).perform
-      name.text.should eq "Right swipe"
+        sleep(1)
+      end
     end
 
-    it "should swipe left" do
-      find_element(:name, "Gestures -- Schematic").click
-      sleep(1)
+    describe "Swipe actions" do
+      it "should swipe right" do
+        find_element(:name, "Gestures -- Schematic").click
+        sleep(1)
 
-      name = find_element(:name, "gesture_name")
-      name.text.should eq ""
+        name = find_element(:name, "gesture_name")
+        name.text.should eq ""
 
-      swipe(start_x: 300, start_y: 400, end_x: -200, end_y: 0)
-      name.text.should eq "Left swipe"
+        a = Appium::TouchAction.new
+        a.swipe(start_x: 100, start_y: 400, end_x: 200, end_y: 0).perform
+        name.text.should eq "Right swipe"
+
+        sleep(1)
+      end
+
+      it "should swipe left" do
+        find_element(:name, "Gestures -- Schematic").click
+        sleep(1)
+
+        name = find_element(:name, "gesture_name")
+        name.text.should eq ""
+
+        swipe(start_x: 300, start_y: 400, end_x: -200, end_y: 0)
+        name.text.should eq "Left swipe"
+
+        sleep(1)
+      end
+
+      it "should swipe up" do
+        find_element(:name, "Gestures -- Schematic").click
+        sleep(1)
+
+        name = find_element(:name, "gesture_name")
+        name.text.should eq ""
+
+        el = find_element(:name, "myscrollview")
+
+        swipe(start_x: 200, start_y: 400, end_x: 0, end_y: -200)
+        name.text.should eq "Up swipe"
+
+        sleep(1)
+      end
+
+      it "should swipe down" do
+        find_element(:name, "Gestures -- Schematic").click
+        sleep(1)
+
+        name = find_element(:name, "gesture_name")
+        name.text.should eq ""
+
+        el = find_element(:name, "myscrollview")
+
+        swipe(start_x: 200, start_y: 100, end_x: 0, end_y: 200)
+        name.text.should eq "Down swipe"
+
+        sleep(1)
+      end
     end
 
-    it "should swipe up" do
-      find_element(:name, "Gestures -- Schematic").click
-      sleep(1)
+    describe "Pinch actions" do
+      it "should zoom" do
+        find_element(:name, "Gestures -- Schematic").click
+        sleep(1)
 
-      name = find_element(:name, "gesture_name")
-      name.text.should eq ""
+        name = find_element(:name, "gesture_name")
+        name.text.should eq ""
 
-      el = find_element(:name, "myscrollview")
+        el = find_element(:name, "myscrollview")
 
-      swipe(start_x: 200, start_y: 400, end_x: 0, end_y: -200)
-      name.text.should eq "Up swipe"
-    end
+        # zoom
+        top = Appium::TouchAction.new
+        top.swipe(start_x: 200, start_y: 400, end_x: 100, end_y: 0)
+        bottom = Appium::TouchAction.new
+        bottom.swipe(start_x: 200, start_y: 400, end_x: -100, end_y: 0)
 
-    it "should swipe down" do
-      find_element(:name, "Gestures -- Schematic").click
-      sleep(1)
+        zoom = Appium::MultiTouch.new
+        zoom.add top
+        zoom.add bottom
+        zoom.perform
 
-      name = find_element(:name, "gesture_name")
-      name.text.should eq ""
+        name.text.should eq "Zoom"
 
-      el = find_element(:name, "myscrollview")
+        sleep(4)
+      end
 
-      swipe(start_x: 200, start_y: 100, end_x: 0, end_y: 200)
-      name.text.should eq "Down swipe"
-    end
-  end
+      it "should pinch" do
+        find_element(:name, "Gestures -- Schematic").click
+        sleep(1)
 
-  describe "Pinch actions" do
-    it "should zoom" do
-      find_element(:name, "Gestures -- Schematic").click
-      sleep(1)
+        name = find_element(:name, "gesture_name")
+        name.text.should eq ""
 
-      name = find_element(:name, "gesture_name")
-      name.text.should eq ""
+        el = find_element(:name, "myscrollview")
 
-      el = find_element(:name, "myscrollview")
+        # zoom
+        top = Appium::TouchAction.new
+        top.swipe(start_x: 100, start_y: 400, end_x: 100, end_y: 0)
+        bottom = Appium::TouchAction.new
+        bottom.swipe(start_x: 300, start_y: 400, end_x: -100, end_y: 0)
 
-      # zoom
-      top = Appium::TouchAction.new
-      top.swipe(start_x: 200, start_y: 400, end_x: 100, end_y: 0)
-      bottom = Appium::TouchAction.new
-      bottom.swipe(start_x: 200, start_y: 400, end_x: -100, end_y: 0)
+        zoom = Appium::MultiTouch.new
+        zoom.add top
+        zoom.add bottom
+        zoom.perform
+        sleep(1)
 
-      zoom = Appium::MultiTouch.new
-      zoom.add top
-      zoom.add bottom
-      zoom.perform
+        name.text.should eq "Pinch"
 
-      name.text.should eq "Zoom"
-    end
-
-    it "should pinch" do
-      find_element(:name, "Gestures -- Schematic").click
-      sleep(1)
-
-      name = find_element(:name, "gesture_name")
-      name.text.should eq ""
-
-      el = find_element(:name, "myscrollview")
-
-      # zoom
-      top = Appium::TouchAction.new
-      top.swipe(start_x: 100, start_y: 400, end_x: 100, end_y: 0)
-      bottom = Appium::TouchAction.new
-      bottom.swipe(start_x: 300, start_y: 400, end_x: -100, end_y: 0)
-
-      zoom = Appium::MultiTouch.new
-      zoom.add top
-      zoom.add bottom
-      zoom.perform
-      sleep(1)
-
-      name.text.should eq "Pinch"
+        sleep(4)
+      end
     end
   end
 

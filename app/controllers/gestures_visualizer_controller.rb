@@ -37,7 +37,7 @@ class GesturesVisualizerController < UIViewController
     @detail_view.accessibilityLabel = "gesture_detail"
     @detail_view.setFont(UIFont.fontWithName("Helvetica", size:12))
     @detail_view.textAlignment = UITextAlignmentCenter
-    @detail_view.text = "some details here"
+    @detail_view.text = ""
     @detail_view.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height - 10)
     @mainImage.addSubview @detail_view
 
