@@ -20,6 +20,7 @@ class ScrollingController < UIViewController
 
     # table view
     @table = UITableView.alloc.initWithFrame(self.view.bounds)
+    @table.accessibilityLabel = "Scrolling Table View"
     @table.autoresizingMask = UIViewAutoresizingFlexibleHeight
     @table.backgroundColor = UIColor.whiteColor
     @table.dataSource = @table.delegate = self
@@ -29,6 +30,20 @@ class ScrollingController < UIViewController
     @table.addGestureRecognizer(tapR)
 
     @data = ('A'..'Z').to_a
+
+    # upSR = UISwipeGestureRecognizer.alloc.initWithTarget(self, action:"handle_swipe:")
+    # upSR.direction = UISwipeGestureRecognizerDirectionUp
+    # @table.addGestureRecognizer(upSR)
+
+    # downSR = UISwipeGestureRecognizer.alloc.initWithTarget(self, action:"handle_swipe:")
+    # downSR.direction = UISwipeGestureRecognizerDirectionDown
+    # @table.addGestureRecognizer(downSR)
+  end
+
+  def handle_swipe
+    alert = UIAlertView.new
+    alert.message = "Hello World!"
+    alert.show
   end
 
   def handle_tap

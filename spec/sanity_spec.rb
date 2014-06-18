@@ -17,19 +17,27 @@ require 'appium_lib'
 
 require 'rspec'
 
-APP_PATH = '../build/iPhoneSimulator-7.0-Development/AppiumDemo.app'
+APP_PATH = '../build/iPhoneSimulator-7.1-Development/AppiumDemo.app'
+
+RSpec.configure do |config|
+  config.expect_with :rspec do |c|
+    c.syntax = [:should, :expect]
+  end
+end
 
 def desired_caps
   {
     'platformName' => 'iOS',
     'deviceName' => 'iPhone Retina (4-inch)', # 'iPhone Simulator 4-inch',
-    'platformVersion' => '6.1',
+    'platformVersion' => '7.1',
     'app' => absolute_app_path
   }
 end
 
 def absolute_app_path
-    File.join(File.dirname(__FILE__), APP_PATH)
+    f = File.join(File.dirname(__FILE__), APP_PATH)
+    puts f
+    f
 end
 
 def server_url
@@ -50,6 +58,17 @@ describe "AppiumDemo" do
     driver_quit
   end
 
+  it "should be able to shake" do
+    shake
+    find_element(:accessibility_id, 'Hello World!')
+  end
+
+  it "should be able to shake" do
+    # find_element(:accessibility_id, "Editing")
+    shake
+    # find_element(:accessibility_id, 'Hello World!')
+  end
+
   describe "Handling UITextFields" do
     it "should be able to fill in text fields" do
       rnd = Random.new
@@ -62,19 +81,19 @@ describe "AppiumDemo" do
       sum_el.text.should eq ""
 
       add_btn = find_element(:name, "Add")
-      add_btn.enabled?.should be_false
+      add_btn.should_not be_enabled
 
       el = find_element(:name, "TextField 1")
       el.send_keys("#{n1}")
 
       sum_el.text.should eq ""
-      add_btn.enabled?.should be_false
+      add_btn.should_not be_enabled
 
       el = find_element(:name, "TextField 2")
       el.send_keys("#{n2}")
 
       sum_el.text.should eq ""
-      add_btn.enabled?.should be_true
+      add_btn.should be_enabled
 
       add_btn.click
 

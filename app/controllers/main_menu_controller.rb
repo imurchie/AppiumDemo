@@ -70,4 +70,30 @@ class MainMenuController < UITableViewController
       'Gestures -- Visual'
     ]
   end
+
+  attr_accessor :shaked
+  def shaked?
+    @shaked
+  end
+
+  def viewWillAppear(animated)
+    super
+    becomeFirstResponder
+  end
+
+  def viewDidDisappear(animated)
+    super
+    resignFirstResponder
+  end
+
+  def canBecomeFirstResponder
+    true
+  end
+
+  def motionEnded(motion, withEvent:event)
+    @shaked = motion == UIEventSubtypeMotionShake
+    alert = UIAlertView.new
+    alert.message = "Hello World!"
+    alert.show
+  end
 end
