@@ -53,6 +53,8 @@ class MainMenuController < UITableViewController
       controller = GestureTestsController.alloc.init
     elsif data[indexPath.row] == 'Gestures -- Visual'
       controller = GesturesVisualizerController.alloc.init
+    elsif data[indexPath.row] == 'Date'
+      controller = DatePickerController.alloc.init
     else
       return
     end
@@ -67,7 +69,8 @@ class MainMenuController < UITableViewController
       'Scrolling',
       'Gestures',
       'Gestures -- Schematic',
-      'Gestures -- Visual'
+      'Gestures -- Visual',
+      'Date'
     ]
   end
 

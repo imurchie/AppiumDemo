@@ -99,7 +99,7 @@ describe "AppiumDemo" do
 
       sum_el.text.should eq "#{n1 + n2}"
 
-      sleep(4)
+      sleep(2)
     end
   end
 
