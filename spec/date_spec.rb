@@ -69,11 +69,5 @@ describe "AppiumDemo" do
     wheel_els[0].value.should eq 'March'
     wheel_els[1].value.should eq '1'
     wheel_els[2].value.should eq '2013'
-
-    # _webDriver.FindElementsByClassName("UIAPickerWheel")[0].SendKeys(month);
-    # _webDriver.FindElementsByClassName("UIAPickerWheel")[1].SendKeys(date);
-    # _webDriver.FindElementsByClassName("UIAPickerWheel")[2].SendKeys(year);
-    # _webDriver.FindElementByPartialLinkText("Done").Click();
-    # _webDriver.SetContext("WEBVIEW_1");
   end
 end
