@@ -15,6 +15,8 @@ class EditingController < UIViewController
   def viewDidLoad
     super
 
+    NSLog("Entering Editing Controller")
+
     # simple init
     self.title = "Editing"
     self.view.backgroundColor = UIColor.whiteColor
@@ -39,7 +41,7 @@ class EditingController < UIViewController
     @text_field2.delegate = self
     self.view.addSubview @text_field2
 
-    @text_view = UITextView.alloc.initWithFrame [[0, 0], [160, 26]]
+    @text_view = UITextField.alloc.initWithFrame [[0, 0], [160, 26]]
     @text_view.accessibilityLabel = "Sum"
     @text_view.textAlignment = UITextAlignmentCenter
     @text_view.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2 - 50)
